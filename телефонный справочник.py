@@ -95,7 +95,24 @@ def search_contact():
         if search in lst_contact[i_var]:
             print(str_contact)
 
+def copy():
+    with open("phonebook.txt", 'r', encoding='utf-8') as file:
+        contacts_str = file.read()
+    #print([contacts_str])
+        contacts_list = contacts_str.rstrip().split('\n\n')
+    for n, contact in enumerate(contacts_list, 1):
+        print(n, contact)
+    print()
 
+    one_copy = int(input("Номер контакта, который требуется копировать: "))
+    print()
+    
+    for n, contact in enumerate(contacts_list, 1):
+        if n == one_copy:
+            print(n, contact)
+
+            with open("copy.txt", 'a', encoding='utf-8') as file:
+                file.write(f'\n{contact}\n')
 
 
 def interface():
@@ -103,17 +120,18 @@ def interface():
         pass
 
     var = 0
-    while var != '4':
+    while var != '5':
         print(
             'Возможные варианты:\n'
             '1. Добавить контакт\n'
             '2. Вывести на экран\n'
             '3. Поиск контакта\n'
-            '4. Выход'
+            '4. Копирование контакта\n'
+            '5. Выход'
             )
         print()
         var = input('выберите вариант действия: ')
-        while var not in ('1', '2', '3', '4'):
+        while var not in ('1', '2', '3', '4', '5'):
             print('некорректный ввод!')
             var = input('выберите вариант действия: ')
         print()
@@ -126,9 +144,12 @@ def interface():
             case '3':
                 search_contact()
             case '4':
-                print('До свидания')
+                copy()
+            case '5':
+                print('До свидания')  
         print()
-
+        
 
 if __name__ == '__main__':
     interface()
+    
